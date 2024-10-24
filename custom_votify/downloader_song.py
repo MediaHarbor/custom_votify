@@ -7,7 +7,7 @@ from pathlib import Path
 from .downloader_audio import DownloaderAudio
 from .models import Lyrics, StreamInfoAudio
 
-logger = logging.getLogger("votify")
+logger = logging.getLogger("custom_votify")
 
 
 class DownloaderSong(DownloaderAudio):

@@ -5,7 +5,7 @@ import logging
 from .downloader_episode import DownloaderEpisode
 from .downloader_video import DownloaderVideo
 
-logger = logging.getLogger("votify")
+logger = logging.getLogger("custom_votify")
 
 
 class DownloaderEpisodeVideo(DownloaderVideo):

@@ -32,7 +32,7 @@ from .enums import (
 )
 from .spotify_api import SpotifyApi
 
-logger = logging.getLogger("votify")
+logger = logging.getLogger("custom_votify")
 
 spotify_api_sig = inspect.signature(SpotifyApi.__init__)
 downloader_sig = inspect.signature(Downloader.__init__)
@@ -127,7 +127,7 @@ def load_config_file(
 @click.option(
     "--config-path",
     type=Path,
-    default=Path.home() / ".votify" / "config.json",
+    default=Path.home() / ".custom_votify" / "config.json",
     help="Path to config file.",
 )
 @click.option(
@@ -390,6 +390,11 @@ def main(
     logger.setLevel(log_level)
     logger.info("Starting Votify")
     spotify_api = SpotifyApi(cookies_path)
+    if spotify_api.config_info["isAnonymous"]:
+        logger.critical(
+            "Failed to get a valid session. Try logging in and exporting your cookies again"
+        )
+        return
     downloader = Downloader(
         spotify_api,
         output_path,
@@ -558,6 +563,10 @@ def main(
             media_metadata = download_queue_item.media_metadata
             try:
                 logger.info(
+                    f'\nCover: {media_metadata["album"]["images"][0]["url"]}\n'
+                    f'Album: {media_metadata["album"]["name"]}\n'
+                    f'Artist: {media_metadata["album"]["artists"][0]["name"]}\n'
+                    f'Title: {media_metadata["name"]}\n'
                     f'({queue_progress}) Downloading "{media_metadata["name"]}"'
                 )
                 media_id = downloader.get_media_id(media_metadata)

@@ -1,5 +1,5 @@
 [project]
-name = "votify"
+name = "custom_votify"
 description = "A Python CLI app for downloading songs/podcasts from Spotify."
 requires-python = ">=3.8"
 authors = [{ name = "glomatico" }]
@@ -18,11 +18,11 @@ readme = "README.md"
 dynamic = ["version"]
 
 [project.urls]
-repository = "https://github.com/glomatico/votify"
+repository = "https://github.com/glomatico/custom_votify"
 
 [build-system]
 requires = ["flit_core"]
 build-backend = "flit_core.buildapi"
 
 [project.scripts]
-votify = "votify.cli:main"
+custom_votify = "custom_votify.cli:main"

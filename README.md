@@ -37,49 +37,49 @@ The following tools are optional but required for specific features. Add them to
     * Note: .wvd files extracted from emulated devices may not work.
 
 ## Installation
-1. Install the package `votify` using pip
+1. Install the package `custom_votify` using pip
     ```bash
-    pip install votify
+    pip install custom_votify
     ```
 2. Set up the cookies file.
     * You can either move to the current directory from which you will be running Votify as `cookies.txt` or specify its path using the command-line arguments/config file.
 
 ## Usage
 ```bash
-votify [OPTIONS] URLS...
+custom_votify [OPTIONS] URLS...
 ```
 
 ### Examples
 * Download a song
     ```bash
-    votify "https://open.spotify.com/track/18gqCQzqYb0zvurQPlRkpo"
+    custom_votify "https://open.spotify.com/track/18gqCQzqYb0zvurQPlRkpo"
     ```
 * Download an album
     ```bash
-    votify "https://open.spotify.com/album/0r8D5N674HbTXlR3zNxeU1"
+    custom_votify "https://open.spotify.com/album/0r8D5N674HbTXlR3zNxeU1"
     ```
 * Download a podcast episode
     ```bash
-    votify "https://open.spotify.com/episode/3kwxWnzGH8T6UY2Nq582zx"
+    custom_votify "https://open.spotify.com/episode/3kwxWnzGH8T6UY2Nq582zx"
     ```
 * Download a podcast series
     ```bash
-    votify "https://open.spotify.com/show/4rOoJ6Egrf8K2IrywzwOMk"
+    custom_votify "https://open.spotify.com/show/4rOoJ6Egrf8K2IrywzwOMk"
 * Download a music video
     ```bash
-    votify "https://open.spotify.com/track/31k4hgHmrbzorLZMvMWuzq" --enable-videos
+    custom_votify "https://open.spotify.com/track/31k4hgHmrbzorLZMvMWuzq" --enable-videos
     ```
 * List and select a related music video to download from a song
     ```bash
-    votify "https://open.spotify.com/track/0a0n6u6j3t6m0p4k0t0k0u0" --enable-videos --download-music-videos
+    custom_votify "https://open.spotify.com/track/0a0n6u6j3t6m0p4k0t0k0u0" --enable-videos --download-music-videos
     ```
 * Download a podcast video
     ```bash
-    votify "https://open.spotify.com/episode/3kwxWnzGH8T6UY2Nq582zx" --enable-videos --download-podcast-videos
+    custom_votify "https://open.spotify.com/episode/3kwxWnzGH8T6UY2Nq582zx" --enable-videos --download-podcast-videos
     ```
 * Choose which albums to download from an artist
     ```bash
-    votify "https://open.spotify.com/artist/0gxyHStUsqpMadRV0Di1Qt"
+    custom_votify "https://open.spotify.com/artist/0gxyHStUsqpMadRV0Di1Qt"
     ```
 
 ### Interactive prompt controls
@@ -91,7 +91,7 @@ votify [OPTIONS] URLS...
 ## Configuration
 Votify can be configured using the command-line arguments or the config file.
 
-The config file is created automatically when you run Votify for the first time at `~/.votify/config.json` on Linux and `%USERPROFILE%\.votify\config.json` on Windows.
+The config file is created automatically when you run Votify for the first time at `~/.custom_votify/config.json` on Linux and `%USERPROFILE%\.custom_votify\config.json` on Windows.
 
 Config file values can be overridden using command-line arguments.
 

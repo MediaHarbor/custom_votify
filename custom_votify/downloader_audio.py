@@ -102,23 +102,22 @@ class DownloaderAudio:
         elif self.download_mode == DownloadMode.ARIA2C:
             self.download_stream_url_aria2c(input_path, stream_url)
 
-    def download_stream_url_ytdlp(self, input_path: Path, stream_url: str) -> None:
-        input_path.parent.mkdir(parents=True, exist_ok=True)
-        with YoutubeDL(
-            {
-                "quiet": True,
-                "no_warnings": True,
-                "noprogress": self.downloader.silence,
-            }
-        ) as ydl:
-            http_downloader = HttpFD(ydl, ydl.params)
-            http_downloader.download(
-                str(input_path),
-                {
-                    "url": stream_url,
-                },
-            )
-
+    def download_stream_url_ytdlp(self, path: Path, stream_url: str):
+        ydl_opts = {
+            "quiet": True,
+            "no_warnings": True,
+            "outtmpl": str(path),
+            "allow_unplayable_formats": True,
+            "fixup": "never",
+            "progress_hooks": [self.progress_hook],  # Add a progress hook
+        }
+        with YoutubeDL(ydl_opts) as ydl:
+            ydl.download([stream_url])
+    
+    def progress_hook(self, d):
+        if d['status'] == 'downloading':
+            percentage = d['_percent_str'].strip()
+            print(f"Downloading: {percentage}")
     def download_stream_url_aria2c(self, input_path: Path, stream_url: str) -> None:
         input_path.parent.mkdir(parents=True, exist_ok=True)
         subprocess.run(

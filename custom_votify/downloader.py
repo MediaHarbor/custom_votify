@@ -10,7 +10,14 @@ import subprocess
 from io import BytesIO
 from pathlib import Path
 
-from re_unplayplay import decrypt_and_bind_key
+try:
+    re_unpp_exc: ImportError | None = None
+    from re_unplayplay import decrypt_and_bind_key, get_token
+except ImportError as err:
+    decrypt_and_bind_key = lambda a, b: None
+    get_token = lambda: None
+    re_unpp_exc = err
+
 import requests
 from InquirerPy import inquirer
 from InquirerPy.base.control import Choice
@@ -31,7 +38,7 @@ from .playplay_pb2 import (
 from .spotify_api import SpotifyApi
 from .utils import check_response
 
-logger = logging.getLogger("votify")
+logger = logging.getLogger("custom_votify")
 
 
 class Downloader:
@@ -363,7 +370,7 @@ class Downloader:
     def get_playplay_decryption_key(self, file_id: str) -> bytes:
         playplay_license_request = PlayPlayLicenseRequest(
             version=2,
-            token=bytes.fromhex("01e132cae527bd21620e822f58514932"),
+            token=get_token(),
             interactivity=Interactivity.INTERACTIVE,
             content_type=AUDIO_TRACK,
         )
@@ -374,6 +381,8 @@ class Downloader:
         playplay_license_response = PlayPlayLicenseResponse()
         playplay_license_response.ParseFromString(playplay_license_response_bytes)
         obfuscated_key = playplay_license_response.obfuscated_key
+        if re_unpp_exc is not None:
+            raise re_unpp_exc
         key = decrypt_and_bind_key(obfuscated_key, file_id)
         return key
 
