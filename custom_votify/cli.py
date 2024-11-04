@@ -32,7 +32,7 @@ from .enums import (
 )
 from .spotify_api import SpotifyApi
 
-logger = logging.getLogger("votify")
+logger = logging.getLogger("custom_votify")
 
 spotify_api_sig = inspect.signature(SpotifyApi.__init__)
 downloader_sig = inspect.signature(Downloader.__init__)
@@ -127,7 +127,7 @@ def load_config_file(
 @click.option(
     "--config-path",
     type=Path,
-    default=Path.home() / ".votify" / "config.json",
+    default=Path.home() / ".custom_votify" / "config.json",
     help="Path to config file.",
 )
 @click.option(
@@ -564,13 +564,20 @@ def main(
                 exc_info=no_exceptions,
             )
             continue
+# Old code adjustments
+
         for index, download_queue_item in enumerate(download_queue, start=1):
             queue_progress = (
                 f"Track {index}/{len(download_queue)} from URL {url_index}/{len(urls)}"
             )
             media_metadata = download_queue_item.media_metadata
             try:
+                # Track info for mediaharbor
                 logger.info(
+                    f'\nCover: {media_metadata["album"]["images"][0]["url"]}\n'
+                    f'Album: {media_metadata["album"]["name"]}\n'
+                    f'Artist: {media_metadata["album"]["artists"][0]["name"]}\n'
+                    f'Title: {media_metadata["name"]}\n'
                     f'({queue_progress}) Downloading "{media_metadata["name"]}"'
                 )
                 media_id = downloader.get_media_id(media_metadata)

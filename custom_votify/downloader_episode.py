@@ -7,7 +7,7 @@ from .constants import AAC_AUDIO_QUALITIES
 from .downloader_audio import DownloaderAudio
 from .models import StreamInfoAudio
 
-logger = logging.getLogger("votify")
+logger = logging.getLogger("custom_votify")
 
 
 class DownloaderEpisode(DownloaderAudio):

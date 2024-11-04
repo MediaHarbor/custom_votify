@@ -38,7 +38,7 @@ from .playplay_pb2 import (
 from .spotify_api import SpotifyApi
 from .utils import check_response
 
-logger = logging.getLogger("votify")
+logger = logging.getLogger("custom_votify")
 
 
 class Downloader:

@@ -7,7 +7,7 @@ from InquirerPy.base.control import Choice
 
 from .downloader_video import DownloaderVideo
 
-logger = logging.getLogger("votify")
+logger = logging.getLogger("custom_votify")
 
 
 class DownloaderMusicVideo(DownloaderVideo):
